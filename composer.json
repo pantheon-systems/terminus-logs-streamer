@@ -1,0 +1,28 @@
+{
+    "name": "pantheon-systems/terminus-logs-stream",
+    "description": "Get server logs on all appservers in a specific environment.",
+    "type": "terminus-plugin",
+    "autoload": {
+        "psr-4": { "Pantheon\\TerminusSiteLogs\\": "src" }
+    },
+    "extra": {
+        "terminus": {
+            "compatible-version": "^1|^2"
+        }
+    },
+    "require-dev": {
+        "league/climate": "^3.2",
+        "squizlabs/php_codesniffer": "3.6.0"
+    },
+    "scripts": {
+        "install-bats": "if [ ! -f bin/bats ] ; then git clone https://github.com/sstephenson/bats.git; mkdir -p bin; bats/install.sh .; fi",
+        "bats": "TERMINUS_PLUGINS_DIR=.. bin/bats tests",
+        "cs": "phpcs --standard=PSR2 -n src",
+        "cbf": "phpcbf --standard=PSR2 -n src",
+        "test": [
+            "@install-bats",
+            "@bats",
+            "@cs"
+        ]
+    }
+}
