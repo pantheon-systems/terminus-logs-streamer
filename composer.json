@@ -1,9 +1,9 @@
 {
-    "name": "pantheon-systems/terminus-logs-stream",
-    "description": "Get server logs on all appservers in a specific environment.",
+    "name": "pantheon-systems/terminus-logs-streamer",
+    "description": "Stream logs from all appservers.",
     "type": "terminus-plugin",
     "autoload": {
-        "psr-4": { "Pantheon\\TerminusSiteLogs\\": "src" }
+        "psr-4": { "Pantheon\\TerminusLogsStreamer\\": "src" }
     },
     "extra": {
         "terminus": {
