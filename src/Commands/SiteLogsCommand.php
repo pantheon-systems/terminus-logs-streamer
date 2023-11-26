@@ -51,6 +51,11 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
     private $logPath;
 
     /**
+     * @var string
+     */
+    private $localLogFile;
+
+    /**
      * Object constructor
      */
     public function __construct()
@@ -58,7 +63,8 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
         parent::__construct();
 
         $this->width = exec("echo $(/usr/bin/tput cols)");
-        $this->logPath = getenv('HOME') . '/.terminus/site-logs';
+        // Define the log path.
+        $this->logPath = getenv('HOME') . '/.terminus/site-logs/';
     }
 
     /**
@@ -72,13 +78,25 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
         'php-slow',
     ];
 
+    private $options = [
+        'exclude' => true, 
+        'all' => false, 
+        'nginx-access' => false, 
+        'nginx-error' => false, 
+        'php-fpm-error' => false, 
+        'php-slow' => false, 
+        'pyinotify' => false, 
+        'watcher' => false, 
+        'newrelic' => true,
+    ];
+
     /**
      * Download the logs.
      *
-     * @command logs:get
-     * @aliases lg
+     * @command logs:stream
+     * @aliases stream
      * 
-     * @usage <site>.<env> [dest]
+     * @usage <site>.<env> 
      * 
      * To get all the logs - including archived logs.
      *   terminus logs:get <site>.<env> --all
@@ -86,15 +104,14 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
      * To store logs in a custom location.
      *   terminus logs:get <site>.<env> [/path/to/folder]
      */
-    public function GetLogs($site_env, $dest = null,
-        $options = ['exclude' => true, 'all' => false, 'nginx-access' => false, 'nginx-error' => false, 'php-fpm-error' => false, 'php-slow' => false, 'pyinotify' => false, 'watcher' => false, 'newrelic' => true,]) {
+    public function LogsStream($site_env, $dest = null, $options) {
         
         // Create the logs directory if not present.
         if (!is_dir($this->logPath))
         {
-            $this->log()->error('Logs directory not found.');
+            //$this->log()->error('Logs directory not found.');
             // Create the logs directory if not present.
-            $this->log()->notice('Creating logs directory.');
+            //$this->log()->notice('Creating logs directory.');
             mkdir($this->logPath, 0777, true);
         }
          
@@ -109,6 +126,9 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
         $src = "$env_id.$site_id";
         $files = '*.log';
 
+        print_r($this);
+
+        /*
         // If the destination parameter is empty, set destination to ~/.terminus/site-logs/[sitename]/[env]/.
         if (!$dest) 
         {
@@ -163,6 +183,7 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
             $this->log()->notice('Running {cmd}', ['cmd' => "rsync $rsync_options $src@$db_server_ip:logs/*.log $dir"]);
             $this->passthru("rsync $rsync_options -zi --progress --ipv4 --exclude=.git -e 'ssh -p 2222' $src@$db_server_ip:logs/*.log $dir >/dev/null 2>&1");
         }
+        */
     }
 
     /**
@@ -176,6 +197,22 @@ class SiteLogsCommand extends TerminusCommand implements SiteAwareInterface
         if ($result != 0) 
         {
             throw new TerminusException('Command `{command}` failed with exit code {status}', ['command' => $command, 'status' => $result]);
+        }
+    }
+
+    // Function to check for new log entries and output them
+    private function tailLogFile($filePointer, &$lastReadPosition) {
+        clearstatcache(true, $GLOBALS['localLogFile']);
+        $newFileSize = filesize($GLOBALS['localLogFile']);
+    
+        // Check if the file size has increased (indicating new content)
+        if ($newFileSize > $lastReadPosition) {
+            fseek($filePointer, $lastReadPosition);
+            $newEntries = fread($filePointer, $newFileSize - $lastReadPosition);
+            $lastReadPosition = $newFileSize;
+    
+            // Output the new entries
+            echo $newEntries;
         }
     }
 

@@ -3,7 +3,7 @@
         'name' => 'pantheon-systems/terminus-logs-streamer',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '453d936e2aaea69396f0b185dfdc7f985c71f828',
+        'reference' => '53240f27bb53d34144db0f1a23d4dcf97dee2c12',
         'type' => 'terminus-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'pantheon-systems/terminus-logs-streamer' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '453d936e2aaea69396f0b185dfdc7f985c71f828',
+            'reference' => '53240f27bb53d34144db0f1a23d4dcf97dee2c12',
             'type' => 'terminus-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

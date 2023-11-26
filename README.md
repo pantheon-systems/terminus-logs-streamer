@@ -1,12 +1,10 @@
-# Logs Parser
+# Logs Streamer
 
 [![Actively Maintained](https://img.shields.io/badge/Pantheon-Actively_Maintained-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#actively-maintained-support)
 
 [![Terminus v1.x Compatible](https://img.shields.io/badge/terminus-v1.x-green.svg)](https://github.com/geraldvillorente/terminus-logs/tree/1.x)
 
-A Terminus plugin that:
-* download site logs from a specific environment of a [Pantheon](https://www.pantheon.io) sites
-* parse the logs for debugging purposes
+Streams logs like a boss.
 
 This will also pull logs on an environment with __multiple containers__.
 
