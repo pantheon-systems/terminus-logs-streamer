@@ -6,6 +6,10 @@
 
 Streams logs like a boss.
 
+This plugin is on active development. 
+
+## Not ready for production. 
+
 Learn more about Terminus and Terminus Plugins at:
 [https://pantheon.io/docs/terminus/plugins/](https://pantheon.io/docs/terminus/plugins/)
 
