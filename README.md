@@ -1,6 +1,6 @@
 # Logs Streamer
 
-[![Actively Maintained](https://img.shields.io/badge/Pantheon-Actively_Maintained-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#actively-maintained-support)
+[![Unofficial Support](https://img.shields.io/badge/pantheon-Unofficial_Support-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#unofficial-support)
 
 Streams logs like a boss.
 
