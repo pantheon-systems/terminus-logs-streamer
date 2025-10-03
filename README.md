@@ -4,9 +4,9 @@
 
 Streams logs like a boss.
 
-This plugin is on active development. 
-
 ## Not ready for production. 
+
+Provided as-is without warranties; evaluate and use at your discretion.
 
 Learn more about Terminus and Terminus Plugins at:
 [https://pantheon.io/docs/terminus/plugins/](https://pantheon.io/docs/terminus/plugins/)
